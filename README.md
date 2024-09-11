@@ -16,7 +16,7 @@ dependencyResolutionManagement {
   Step 2. Add the dependency
 ```gradle
 dependencies {
-	        implementation 'com.github.signfordeaf:mobile-sign-language-translation-kt:Tag'
+	        implementation 'com.github.signfordeaf:mobile-sign-language-translation-kt:1.0.3'
 	}
 ```
 
