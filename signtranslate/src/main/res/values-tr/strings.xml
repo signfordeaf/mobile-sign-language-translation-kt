@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="close">Kapat</string>
+    <string name="app_name">Engelsiz Çeviri</string>
+    <string name="error_desc">Çeviri işlemi şu anda gerçekleştirilemiyor. Lütfen daha sonra tekrar deneyiniz.</string>
+</resources>
