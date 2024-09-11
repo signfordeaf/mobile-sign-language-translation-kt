@@ -20,6 +20,12 @@ dependencies {
 	}
 ```
 
+### Permission
+Ensure that the following permission is present in your Android Manifest file, located in app/src/main/AndroidManifest.xml:
+```
+<uses-permission android:name="android.permission.INTERNET"/>
+```
+
 ## 🧑🏻💻 Usage
 
 ###  📄Kotlin Class
