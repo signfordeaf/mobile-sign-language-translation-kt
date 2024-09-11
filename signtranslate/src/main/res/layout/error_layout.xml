@@ -18,21 +18,19 @@
         android:focusable="true"
         android:src="@drawable/close" />
 
-    <!-- Yükleme ekranının arka planı -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#20000000"
         android:orientation="vertical"
         android:gravity="center">
-        <!-- İstenilen resim -->
         <ImageView
             android:contentDescription="@string/app_name"
             android:id="@+id/loadingImage"
             android:layout_width="64dp"
             android:layout_height="64dp"
             android:layout_centerInParent="true"
-            android:src="@drawable/logo_kafa" />
+            android:src="@drawable/logo_head" />
 
         <TextView
             android:id="@+id/errorText"

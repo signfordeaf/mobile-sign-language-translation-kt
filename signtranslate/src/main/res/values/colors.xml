@@ -2,6 +2,10 @@
 <resources>
     <color name="deepPurple">#501a89</color>
     <color name="transparent">#00000000</color>
+    <color name="background">#f5f5f5</color>
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="strokeButtonColor">#501A89</color>
 
 
 </resources>

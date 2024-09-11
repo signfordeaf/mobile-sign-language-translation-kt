@@ -32,7 +32,6 @@ object SignForDeafTranslate {
     fun getLocalizedTexts(): Map<String, String> {
         val locale = Locale.getDefault()
 
-        // Locale'e göre farklı dillerde metinler
         val textsMap = when (locale.language) {
             "tr" -> mapOf(
                 "logoName" to "Engelsiz Çeviri",
@@ -61,7 +60,7 @@ object SignForDeafTranslate {
 
     fun getText(key: String): String {
         val localizedTexts = getLocalizedTexts()
-        return localizedTexts[key] ?: "Text not found" // Anahtar bulunamazsa varsayılan metin
+        return localizedTexts[key] ?: "Text not found"
     }
 
     private fun convertToHttps(url: String): String {
@@ -83,7 +82,6 @@ object SignForDeafTranslate {
                 if (response.state == true) {
                    var videoUrlHttps =  convertToHttps("${response.baseUrl}${response.name}")
                     //(view.context as? AppCompatActivity)?.supportFragmentManager?.let { fragmentManager -> TranslateVideoUtil.showBottomSheet(fragmentManager, videoUrlHttps) }
-
                     (view.context as? AppCompatActivity)?.supportFragmentManager?.let { fragmentManager ->
                         TranslateVideoUtil.showBottomSheet(fragmentManager, videoUrlHttps)
                     }
@@ -184,7 +182,7 @@ object SignForDeafTranslate {
             is EditText -> {
                 view.isFocusable = true
                 view.isFocusableInTouchMode = true
-                view.setTextIsSelectable(true) // or view.setTextIsSelectable(true)
+                view.setTextIsSelectable(true)
             }
             is ViewGroup -> {
                 for (i in 0 until view.childCount) {

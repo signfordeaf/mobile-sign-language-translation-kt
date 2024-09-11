@@ -16,9 +16,9 @@ class ApiService {
         val urlWithParams = apiUrl.toHttpUrlOrNull()?.newBuilder()?.apply {
             addQueryParameter("s", text)
             addQueryParameter("rk", SignForDeafConfig.requestKey)
-            addQueryParameter("fdid", "16")
-            addQueryParameter("tid", "23")
-            addQueryParameter("language", "1")
+            addQueryParameter("fdid", Constant.TranslateDictionary.turkish)
+            addQueryParameter("tid", Constant.TranslatePerson.man)
+            addQueryParameter("language", Constant.TranslateLanguage.TR)
         }?.build().toString()
 
         val request = Request.Builder()
