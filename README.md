@@ -41,11 +41,11 @@ dependencyResolutionManagement {
 }
 ```
 
-Step 2. Add the dependency (JitPack builds from source, so the coordinate is repo-based):
+Step 2. Add the dependency (JitPack builds from source, so the version is the git tag):
 
 ```gradle
 dependencies {
-    implementation 'com.github.signfordeaf:mobile-sign-language-translation-kt:2.0.0'
+    implementation 'com.github.signfordeaf:mobile-sign-language-translation-kt:v2.0.0'
 }
 ```
 
