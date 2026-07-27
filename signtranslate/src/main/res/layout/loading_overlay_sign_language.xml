@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Full-screen loading screen shown while the sign-language video is prepared.
+     Faithful to the original design: a large indeterminate ring with the corporate
+     logo centered inside it, over a light scrim, and a close (X) button top-right.
+     No card, no label. The bottom sheet opens only once the video is ready. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/overlayRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#80000000">
+
+    <!-- Close (X) button, top-right — white circle so it stands out on the scrim -->
+    <ImageButton
+        android:id="@+id/closeButtonLoading"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
+        android:layout_gravity="top|end"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="20dp"
+        android:background="@drawable/loading_close_bg"
+        android:padding="9dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/ic_close"
+        android:elevation="6dp"
+        android:contentDescription="@string/close_button"
+        tools:ignore="ContentDescription" />
+
+    <!-- Loading state: big ring with the corporate logo in its center -->
+    <com.google.android.material.progressindicator.CircularProgressIndicator
+        android:id="@+id/progressBar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:indeterminate="true"
+        app:indicatorColor="#6750A4"
+        app:indicatorSize="150dp"
+        app:trackColor="@android:color/transparent"
+        app:trackCornerRadius="3dp"
+        app:trackThickness="5dp" />
+
+    <ImageView
+        android:id="@+id/logoImageView"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_gravity="center"
+        android:src="@drawable/logo_head"
+        android:contentDescription="@string/logo_description"
+        tools:ignore="ContentDescription" />
+</FrameLayout>

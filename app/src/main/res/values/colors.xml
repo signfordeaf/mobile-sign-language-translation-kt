@@ -1,10 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <!-- SignForDeaf brand -->
+    <color name="brand_primary">#6750A4</color>
+    <color name="brand_primary_dark">#4A3C7D</color>
+    <color name="brand_on_primary">#FFFFFF</color>
+
+    <!-- Neutrals -->
+    <color name="screen_background">#F5F3FA</color>
+    <color name="card_surface">#FFFFFF</color>
+    <color name="text_primary">#1C1B1F</color>
+    <color name="text_secondary">#5F5B6B</color>
+    <color name="divider">#E4E0EC</color>
+    <color name="log_background">#F1EEF7</color>
+    <color name="success_green">#2E7D32</color>
 </resources>

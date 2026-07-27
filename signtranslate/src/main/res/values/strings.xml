@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="close">Close</string>
-    <string name="app_name">SignForDeaf</string>
-    <string name="error_desc">The translation process cannot be performed at the moment. Please try again later.</string>
+    <string name="app_name">Sign Language Translation</string>
+    <string name="logo_description">Sign Language Logo</string>
+    <string name="close_button">Kapat</string>
+    <string name="video_load_error">Video yüklenemedi</string>
+    <string name="retry">Tekrar Dene</string>
+    <string name="sign_language_menu">İşaret Dili</string>
+    <string name="translation_ready">İşaret dili çevirisi hazır</string>
+    <string name="video_playing">İşaret dili videosu oynatılıyor</string>
 </resources>

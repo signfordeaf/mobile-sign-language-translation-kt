@@ -1,11 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="deepPurple">#501a89</color>
-    <color name="transparent">#00000000</color>
-    <color name="background">#f5f5f5</color>
-    <color name="white">#FFFFFF</color>
-    <color name="black">#000000</color>
-    <color name="strokeButtonColor">#501A89</color>
-
-
+    <!-- Primary Color -->
+    <color name="sign_language_primary">#6750A4</color>
+    <color name="sign_language_primary_dark">#4A3C7D</color>
+    <color name="sign_language_accent">#6750A4</color>
+    
+    <!-- Secondary Color -->
+    <color name="sign_language_secondary">#625B71</color>
+    <color name="sign_language_secondary_dark">#4A4458</color>
+    
+    <!-- Background Colors -->
+    <color name="sign_language_background">#FFFFFF</color>
+    <color name="sign_language_surface">#FFFBFE</color>
+    
+    <!-- Text Colors -->
+    <color name="sign_language_text_primary">#1C1B1F</color>
+    <color name="sign_language_text_secondary">#49454F</color>
+    
+    <!-- Video Player -->
+    <color name="video_background">#000000</color>
+    
+    <!-- Bottom Sheet -->
+    <color name="bottom_sheet_background">#FFFFFF</color>
+    <color name="bottom_sheet_grabber">#E0E0E0</color>
+    
+    <!-- Error Colors -->
+    <color name="sign_language_error">#B3261E</color>
+    <color name="sign_language_on_error">#FFFFFF</color>
 </resources>

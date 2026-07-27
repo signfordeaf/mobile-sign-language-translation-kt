@@ -1,3 +1,58 @@
 <resources>
-    <string name="app_name">MobileSignLanguage</string>
+    <string name="app_name">SignForDeaf SDK Demo</string>
+
+    <!-- Hero -->
+    <string name="hero_title">SignForDeaf</string>
+    <string name="hero_subtitle">Sign Language Translation SDK — Demo</string>
+
+    <!-- Setup card -->
+    <string name="setup_title">1. Setup</string>
+    <string name="setup_desc">Enter your API credentials, then configure the SDK. They are saved on this device.</string>
+    <string name="hint_api_key">API Key</string>
+    <string name="hint_api_url">API URL (e.g. https://your-server.example.com)</string>
+    <string name="hint_language">Sign language</string>
+    <string name="btn_configure">Configure &amp; Enable</string>
+    <string name="status_not_configured">Not configured yet</string>
+    <string name="status_configured">Configured ✓ — text selection is now active</string>
+    <string name="status_missing">Please enter both API Key and API URL</string>
+
+    <!-- How to use card -->
+    <string name="howto_title">2. How to translate</string>
+    <string name="howto_1">• Long-press any sample text below and choose \"İşaret Dili\" from the menu.</string>
+    <string name="howto_2">• Turn on Tap-to-translate (below or via the floating button), then single-tap any text.</string>
+    <string name="howto_3">• Or type your own text and press Translate.</string>
+
+    <!-- Sample content card (Turkish — the text that gets translated) -->
+    <string name="sample_title">3. Sample text (Turkish)</string>
+    <string name="sample_1">İşaret dili, işitme engelli bireyler için önemli bir iletişim aracıdır.</string>
+    <string name="sample_2">Erişilebilirlik herkes için temel bir haktır.</string>
+    <string name="sample_3">Merhaba, size nasıl yardımcı olabilirim?</string>
+    <string name="sample_4">Engelsiz bir dünya hepimizin sorumluluğundadır.</string>
+
+    <!-- Tap-to-translate card -->
+    <string name="tap_title">4. Tap-to-translate</string>
+    <string name="tap_switch">Enable tap-to-translate mode</string>
+    <string name="tap_desc">When on, a single tap on any text translates it instantly. The floating button toggles this same mode.</string>
+
+    <!-- Programmatic translate card -->
+    <string name="prog_title">5. Translate programmatically</string>
+    <string name="hint_translate">Type text to translate…</string>
+    <string name="btn_translate">Translate</string>
+
+    <!-- Sensitive data card -->
+    <string name="sensitive_title">6. Sensitive data (blocked)</string>
+    <string name="sensitive_desc">These are never sent to the server. Personal data (national ID, card, IBAN, e-mail, phone) is auto-detected; the last line is manually marked. Try translating them — you\'ll get a blocked notice.</string>
+    <string name="sensitive_tckn">T.C. Kimlik No: 10000000146</string>
+    <string name="sensitive_card">Kart: 4242 4242 4242 4242</string>
+    <string name="sensitive_email">E-posta: ali@example.com</string>
+    <string name="sensitive_marked">Gizli Not (manually marked)</string>
+
+    <!-- Event log card -->
+    <string name="log_title">Event log</string>
+    <string name="log_empty">SDK events will appear here…</string>
+    <string name="btn_clear_log">Clear</string>
+
+    <!-- Toast/snackbar -->
+    <string name="toast_configure_first">Configure the SDK first</string>
+    <string name="toast_enter_text">Enter some text to translate</string>
 </resources>

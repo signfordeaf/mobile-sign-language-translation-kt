@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Blocked notice shown when a translation is blocked because the selected text
+     contains sensitive data. Same look as the loading screen: the corporate logo
+     centered on a dim scrim, with the message below it. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/overlayRoot"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#80000000">
+
+    <LinearLayout
+        android:id="@+id/contentCard"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:clickable="true"
+        android:focusable="true"
+        android:maxWidth="320dp"
+        android:paddingHorizontal="32dp">
+
+        <!-- Corporate logo, centered (like the loading screen) -->
+        <ImageView
+            android:id="@+id/iconView"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:src="@drawable/logo_head"
+            android:importantForAccessibility="no"
+            tools:ignore="ContentDescription" />
+
+        <!-- Message below the logo -->
+        <TextView
+            android:id="@+id/messageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:lineSpacingExtra="3dp"
+            android:gravity="center"
+            tools:text="Bu içerik hassas veri içerdiği için işaret diline çevrilemez." />
+
+        <Button
+            android:id="@+id/okButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="@android:string/ok"
+            android:textColor="@android:color/white"
+            android:textAllCaps="false"
+            android:background="@drawable/button_background"
+            android:paddingHorizontal="28dp"
+            android:minHeight="42dp"
+            android:minWidth="120dp" />
+    </LinearLayout>
+</FrameLayout>

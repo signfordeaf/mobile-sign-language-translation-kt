@@ -1,54 +1,276 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="28dp"
+    android:background="@color/screen_background"
+    android:fillViewport="true"
     tools:context=".MainActivity">
 
-    <EditText
-        android:id="@+id/edText"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Enter the space" />
+        android:orientation="vertical"
+        android:paddingHorizontal="16dp"
+        android:paddingTop="16dp"
+        android:paddingBottom="32dp">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="10dp"
-        android:text="Deneme işaret dili" />
+        <!-- Hero -->
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:cardBackgroundColor="@color/brand_primary"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="0dp">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginVertical="10dp"
-        android:text="Mobile sign language solutions" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="20dp">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingBottom="20dp"
-        android:layout_marginVertical="10dp"
-        android:textIsSelectable="true"
-        android:text="Erişebilirlik çözümleri" />
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:contentDescription="@string/hero_title"
+                    android:src="@drawable/logo_head"
+                    app:tint="@color/white" />
 
-    <Button
-        android:id="@+id/sendTheText"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:text="Send the text" />
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-    <Button
-        android:layout_marginTop="10dp"
-        android:id="@+id/showToastButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:text="Show Toast" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/hero_title"
+                        android:textColor="@color/white"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
 
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="2dp"
+                        android:alpha="0.9"
+                        android:text="@string/hero_subtitle"
+                        android:textColor="@color/white"
+                        android:textSize="13sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
 
-</LinearLayout>
+        <!-- 1. Setup -->
+        <com.google.android.material.card.MaterialCardView style="@style/DemoCard">
+
+            <LinearLayout style="@style/DemoCardContent">
+
+                <TextView style="@style/DemoCardTitle" android:text="@string/setup_title" />
+
+                <TextView style="@style/DemoCardBody" android:text="@string/setup_desc" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/inputApiKey"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:hint="@string/hint_api_key">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etApiKey"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="text"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/inputApiUrl"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:hint="@string/hint_api_url">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etApiUrl"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textUri"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/inputLanguage"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:hint="@string/hint_language">
+
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:id="@+id/dropdownLanguage"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="none"
+                        tools:ignore="LabelFor" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnConfigure"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:paddingVertical="12dp"
+                    android:text="@string/btn_configure"
+                    android:textAllCaps="false"
+                    app:cornerRadius="12dp" />
+
+                <TextView
+                    android:id="@+id/tvStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:drawablePadding="6dp"
+                    android:text="@string/status_not_configured"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="13sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- 2. How to -->
+        <com.google.android.material.card.MaterialCardView style="@style/DemoCard">
+            <LinearLayout style="@style/DemoCardContent">
+                <TextView style="@style/DemoCardTitle" android:text="@string/howto_title" />
+                <TextView style="@style/DemoCardBody" android:layout_marginTop="8dp" android:text="@string/howto_1" />
+                <TextView style="@style/DemoCardBody" android:layout_marginTop="6dp" android:text="@string/howto_2" />
+                <TextView style="@style/DemoCardBody" android:layout_marginTop="6dp" android:text="@string/howto_3" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- 3. Sample content (Turkish, selectable) -->
+        <com.google.android.material.card.MaterialCardView style="@style/DemoCard">
+            <LinearLayout style="@style/DemoCardContent">
+                <TextView style="@style/DemoCardTitle" android:text="@string/sample_title" />
+                <TextView style="@style/SampleText" android:layout_marginTop="10dp" android:text="@string/sample_1" />
+                <View style="@style/SampleDivider" />
+                <TextView style="@style/SampleText" android:text="@string/sample_2" />
+                <View style="@style/SampleDivider" />
+                <TextView style="@style/SampleText" android:text="@string/sample_3" />
+                <View style="@style/SampleDivider" />
+                <TextView style="@style/SampleText" android:text="@string/sample_4" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- 4. Tap-to-translate -->
+        <com.google.android.material.card.MaterialCardView style="@style/DemoCard">
+            <LinearLayout style="@style/DemoCardContent">
+                <TextView style="@style/DemoCardTitle" android:text="@string/tap_title" />
+                <com.google.android.material.materialswitch.MaterialSwitch
+                    android:id="@+id/switchTap"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:text="@string/tap_switch"
+                    android:textColor="@color/text_primary"
+                    android:textSize="15sp" />
+                <TextView style="@style/DemoCardBody" android:layout_marginTop="6dp" android:text="@string/tap_desc" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- 5. Programmatic translate -->
+        <com.google.android.material.card.MaterialCardView style="@style/DemoCard">
+            <LinearLayout style="@style/DemoCardContent">
+                <TextView style="@style/DemoCardTitle" android:text="@string/prog_title" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/inputTranslate"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:hint="@string/hint_translate">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etTranslate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:maxLines="3" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnTranslate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:paddingVertical="12dp"
+                    android:text="@string/btn_translate"
+                    android:textAllCaps="false"
+                    app:cornerRadius="12dp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- 6. Sensitive data (blocked) -->
+        <com.google.android.material.card.MaterialCardView style="@style/DemoCard">
+            <LinearLayout style="@style/DemoCardContent">
+                <TextView style="@style/DemoCardTitle" android:text="@string/sensitive_title" />
+                <TextView style="@style/DemoCardBody" android:text="@string/sensitive_desc" />
+                <TextView style="@style/SampleText" android:layout_marginTop="10dp" android:text="@string/sensitive_tckn" />
+                <View style="@style/SampleDivider" />
+                <TextView style="@style/SampleText" android:text="@string/sensitive_card" />
+                <View style="@style/SampleDivider" />
+                <TextView style="@style/SampleText" android:text="@string/sensitive_email" />
+                <View style="@style/SampleDivider" />
+                <TextView
+                    android:id="@+id/tvSensitiveMarked"
+                    style="@style/SampleText"
+                    android:text="@string/sensitive_marked" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <!-- Event log -->
+        <com.google.android.material.card.MaterialCardView style="@style/DemoCard">
+            <LinearLayout style="@style/DemoCardContent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    <TextView
+                        style="@style/DemoCardTitle"
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:text="@string/log_title" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnClearLog"
+                        style="@style/Widget.Material3.Button.TextButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:minWidth="0dp"
+                        android:text="@string/btn_clear_log"
+                        android:textAllCaps="false" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tvLog"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:background="@color/log_background"
+                    android:fontFamily="monospace"
+                    android:padding="12dp"
+                    android:text="@string/log_empty"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="12sp" />
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>

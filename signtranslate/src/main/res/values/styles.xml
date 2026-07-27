@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--
+    IMPORTANT: This library uses AppCompat themes for maximum compatibility.
+    It works with both Material and AppCompat host apps without requiring
+    the host app to use MaterialComponents theme.
+    -->
+
+    <!-- Base Application Theme for the library - AppCompat for maximum compatibility -->
+    <style name="SignLanguage.Base.Theme" parent="Theme.AppCompat.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/sign_language_primary</item>
+        <item name="colorPrimaryDark">@color/sign_language_primary_dark</item>
+        <item name="colorAccent">@color/sign_language_secondary</item>
+        <item name="android:colorBackground">@android:color/white</item>
+    </style>
+
+    <!-- Bottom Sheet Dialog Style - Uses AppCompat theme for compatibility -->
+    <style name="SignLanguageBottomSheetStyle" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:windowIsFloating">false</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/white</item>
+        <item name="colorPrimary">@color/sign_language_primary</item>
+        <item name="colorPrimaryDark">@color/sign_language_primary_dark</item>
+        <item name="colorAccent">@color/sign_language_secondary</item>
+        <!--
+        Restores the bottom-sheet slide-up/slide-down window animation. Without this,
+        the AppCompat dialog parent shows the sheet with a plain fade (it "pops" in
+        abruptly) instead of sliding smoothly from the bottom.
+        -->
+        <item name="android:windowAnimationStyle">@style/Animation.Design.BottomSheetDialog</item>
+    </style>
+
+    <style name="SignLanguageBottomSheet" parent="android:Widget">
+        <item name="android:background">@drawable/bottom_sheet_background</item>
+    </style>
+
+    <!-- Shape Appearance for Bottom Sheet -->
+    <style name="SignLanguageBottomSheetShapeAppearance" parent="android:Widget">
+        <item name="android:background">@drawable/bottom_sheet_background</item>
+    </style>
+
+    <!-- Button Style - Using standard Android styling for compatibility -->
+    <style name="SignLanguageButton" parent="android:Widget.Button">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@drawable/button_background</item>
+    </style>
+
+    <!-- Text Styles - Using Android base styles for compatibility -->
+    <style name="SignLanguageTitle" parent="android:TextAppearance.Medium">
+        <item name="android:textColor">@color/sign_language_primary</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="SignLanguageBody" parent="android:TextAppearance.Small">
+        <item name="android:textColor">@color/sign_language_text_primary</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+</resources>
