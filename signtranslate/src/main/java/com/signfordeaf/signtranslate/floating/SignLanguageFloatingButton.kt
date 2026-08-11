@@ -166,6 +166,15 @@ class SignLanguageFloatingButton(
         overlay = null; button = null; icon = null; hintView = null
     }
 
+    /**
+     * Hide/show without unmounting, so the docked position survives the player opening and closing
+     * (doc 07 ★ — the v1 bug was the button forgetting where it was left).
+     */
+    fun setVisible(visible: Boolean) {
+        overlay?.visibility = if (visible) View.VISIBLE else View.GONE
+        if (visible) scheduleIdle() else cancelIdle()
+    }
+
     // MARK: - Appearance
 
     private fun applyShape() {

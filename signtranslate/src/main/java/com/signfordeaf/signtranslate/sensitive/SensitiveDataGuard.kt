@@ -106,7 +106,10 @@ object SensitiveDataGuard {
 
         val oddSum = d[0] + d[2] + d[4] + d[6] + d[8]
         val evenSum = d[1] + d[3] + d[5] + d[7]
-        val tenth = ((oddSum * 7) - evenSum) % 10
+        // MUST be a non-negative modulo (doc 11): `(oddSum*7 - evenSum)` can be negative, and
+        // Kotlin's `%` follows the dividend's sign, so a plain `% 10` would let valid identity
+        // numbers slip past the guard and reach the backend.
+        val tenth = Math.floorMod((oddSum * 7) - evenSum, 10)
         if (tenth != d[9]) return false
 
         val firstTenSum = d.take(10).sum()
