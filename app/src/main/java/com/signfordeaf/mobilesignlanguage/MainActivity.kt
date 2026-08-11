@@ -56,12 +56,28 @@ class MainActivity : AppCompatActivity() {
         registerSdkListeners()
         wireActions()
 
-        // If we already have saved credentials, configure immediately so text
-        // selection works without pressing the button again.
-        val savedKey = prefs.getString(KEY_API, "").orEmpty()
-        val savedUrl = prefs.getString(KEY_URL, "").orEmpty()
-        if (savedKey.isNotBlank() && savedUrl.isNotBlank()) {
-            configureSdk(savedKey, savedUrl, currentLanguage(), persist = false)
+        // 1) Credentials injected at build time (the --dart-define equivalent) win: prefill the
+        //    fields and configure immediately.
+        if (BuildConfig.SIGNFORDEAF_API_KEY.isNotBlank() && BuildConfig.SIGNFORDEAF_API_URL.isNotBlank()) {
+            binding.etApiKey.setText(BuildConfig.SIGNFORDEAF_API_KEY)
+            binding.etApiUrl.setText(BuildConfig.SIGNFORDEAF_API_URL)
+            configureSdk(
+                key = BuildConfig.SIGNFORDEAF_API_KEY,
+                url = BuildConfig.SIGNFORDEAF_API_URL,
+                language = currentLanguage(),
+                persist = false,
+                originUrl = BuildConfig.SIGNFORDEAF_ORIGIN_URL,
+                fdid = BuildConfig.SIGNFORDEAF_FDID,
+                tid = BuildConfig.SIGNFORDEAF_TID
+            )
+            log("configured from BuildConfig (dart-define equivalent)")
+        } else {
+            // 2) Otherwise fall back to values saved on the device.
+            val savedKey = prefs.getString(KEY_API, "").orEmpty()
+            val savedUrl = prefs.getString(KEY_URL, "").orEmpty()
+            if (savedKey.isNotBlank() && savedUrl.isNotBlank()) {
+                configureSdk(savedKey, savedUrl, currentLanguage(), persist = false)
+            }
         }
     }
 
@@ -163,13 +179,26 @@ class MainActivity : AppCompatActivity() {
 
     // MARK: - SDK
 
-    private fun configureSdk(key: String, url: String, language: Language, persist: Boolean) {
-        val config = SignLanguageConfig(
+    private fun configureSdk(
+        key: String,
+        url: String,
+        language: Language,
+        persist: Boolean,
+        originUrl: String? = null,
+        fdid: String? = null,
+        tid: String? = null
+    ) {
+        // Only override fdid/tid when explicitly provided; otherwise keep the SDK defaults
+        // (Hesna). This is what makes "default Hesna" actually reach the backend.
+        var config = SignLanguageConfig(
             apiKey = key,
             apiUrl = url,
+            originUrl = originUrl?.takeIf { it.isNotBlank() },
             language = language,
             theme = SignLanguageTheme(primaryColor = "#6750A4")
         )
+        fdid?.takeIf { it.isNotBlank() }?.let { config = config.copy(fdid = it) }
+        tid?.takeIf { it.isNotBlank() }?.let { config = config.copy(tid = it) }
         SignLanguage.configure(this, config)
         SignLanguage.showFloatingButton(this)
         // Demo of manual marking: this line is never sent for translation.

@@ -1,12 +1,14 @@
 # SignForDeaf Mobile Sign Language (Android / Kotlin)
 
-Add on-device sign-language translation to any Android app. Users select (or tap) any
-text, and a looping sign-language video is played in a bottom sheet. This is the native
+Add on-device sign-language translation to any Android app. While the SDK is on, a tap on
+text translates the **sentence** under the finger and plays it in a small **non-modal corner
+player** — the host app stays readable and tappable throughout (no scrim). This is the native
 Kotlin counterpart of the `weaccess-ai-signlanguage` React Native SDK, and mirrors its
 API, theming and language support.
 
-> **v2.0.0 is a breaking change.** The old `SignForDeafUtil` / `SignForDeafTranslate`
-> API has been replaced by a single `SignLanguage` facade. See **Migration** below.
+> **v2 behavior (2.1.0).** The translation experience is now a non-modal corner player with an
+> idle signer loop, smart tap-passthrough and per-sentence translation, matching the SignForDeaf
+> v2 spec in [`docs/`](docs/). The public `SignLanguage` API is unchanged from 2.0.0.
 
 ## 🛠️ Install
 
@@ -19,7 +21,7 @@ the dependency (note the coordinate is `io.github.signfordeaf:signtranslate`):
 
 ```gradle
 dependencies {
-    implementation 'io.github.signfordeaf:signtranslate:2.0.0'
+    implementation 'io.github.signfordeaf:signtranslate:2.1.0'
 }
 ```
 
@@ -45,7 +47,7 @@ Step 2. Add the dependency (JitPack builds from source, so the version is the gi
 
 ```gradle
 dependencies {
-    implementation 'com.github.signfordeaf:mobile-sign-language-translation-kt:v2.0.0'
+    implementation 'com.github.signfordeaf:mobile-sign-language-translation-kt:v2.1.0'
 }
 ```
 
@@ -85,21 +87,34 @@ class MainActivity : AppCompatActivity() {
 }
 ```
 
-After `configure`, every readable `TextView` / `EditText` in the activity gains a
-**"Sign Language"** item in its text-selection menu. Interactive controls (`Button`,
-`Switch`/`CompoundButton`, `ImageButton`, and views with their own click listener) are
-skipped, so tapping them never triggers a translation.
+After `configure`, call `enable(this)` (or set `autoEnable = true`) to turn the SDK on. A
+draggable **floating button** appears; tapping it opens the **corner player** and turns tap mode
+on. The host app is never blocked — it stays readable, scrollable and operable the whole time.
 
-Selecting text and tapping it (or `SignLanguage.translate(text)`) shows a **full-screen
-loading screen** — a translucent dim scrim over the app, with a **thin spinning ring and your
-corporate logo centered inside it**, plus a **close (✕)** button. The **bottom sheet opens only
-once the video is buffered and ready to play**, so the sheet never shows its own spinner.
-Tapping the ✕, the backdrop, or pressing back **cancels** the request (nothing is left running);
-a network error or timeout shows an inline error with **Retry / Close**. New views added later
-are picked up automatically (a 2-second observer re-scans the view tree).
+**How text reaches the SDK (smart passthrough).** With the player open, the SDK classifies each
+touch during hit-testing, so nothing has to be marked up per-widget — *every* readable text in
+the host app becomes translatable automatically, including the labels on buttons:
 
-The translated text shown under the video in the bottom sheet is rendered in the theme
-**`primaryColor`** (matching the React Native SDK).
+- **Tap plain text** → translates the **sentence** under the finger.
+- **Tap a labelled control** (e.g. a Button) → translates its **label** (a Deaf user must be able
+  to read the button before pressing it).
+- **Long-press a labelled control** → the SDK steps aside and the control performs its **own
+  action** (click). So a tap reads it, a long press operates it.
+- **Icon/unlabelled controls, editable fields and scrolling** pass straight through to the app.
+
+(`smartPassthrough = false` restores the v1 "capture everything" behavior; `longPressToTranslate`
+opts into translating text the host itself made tappable. Collapsing the player also hands every
+tap back to the app.)
+
+**The player.** Before/while a translation renders, the stage shows a looping **idle signer**
+(drop the four clips into `res/raw` — see
+[`PLACEHOLDER_CLIPS.md`](signtranslate/PLACEHOLDER_CLIPS.md); until then it falls back to a
+spinner/mark). While loading, the signer sits under a translucent darkening with a spinner. When
+the video is ready it plays with **play/pause, speed and loop** controls **below** the stage
+(never over the signer's hands) and the sentence as a **caption** (auto-scrolls only when longer
+than two lines). **Collapse** folds the player to a small bar and pauses; **✕** closes it and
+brings the floating button back. Error and blocked (sensitive) states render **inside** the
+player. `SignLanguage.translate(text)` opens the player programmatically.
 
 ## ⚙️ Configuration
 
@@ -110,18 +125,38 @@ The translated text shown under the video in the bottom sheet is rendered in the
 | `apiKey`         | `String`               | —         | API key (sent as the `rk` query param)                        |
 | `apiUrl`         | `String`               | —         | Base URL, e.g. `https://your-server.example.com`              |
 | `language`       | `Language`             | `TURKISH` | `TURKISH`, `ENGLISH`, `ARABIC`                                |
-| `fdid`           | `String?`              | `"16"`    | Dictionary ID                                                 |
-| `tid`            | `String?`              | `"23"`    | Translator ID                                                 |
-| `theme`          | `SignLanguageTheme`    | —         | `primaryColor`, `textColor`                                   |
+| `fdid`           | `String?`              | `null`    | Dictionary ID — **optional**; unset ⇒ auto-selects the default translator (Hesna) |
+| `tid`            | `String?`              | `null`    | Translator ID — optional; set only to *pin* a translator      |
+| `theme`          | `SignLanguageTheme`    | —         | `primaryColor`, `textColor`, `onPrimaryColor`, `surfaceColor`, `cornerRadius` |
 | `floatingButton` | `FloatingButtonConfig` | —         | Floating button appearance / behavior                         |
+| `card`           | `SignLanguageCardConfig` | —       | Player size, controls, idle avatar, speeds                    |
+| `granularity`    | `Granularity`          | `SENTENCE` | Translate the tapped sentence, or the whole `PARAGRAPH`      |
+| `smartPassthrough` | `Boolean`            | `true`    | Classify taps so the host app stays usable (`false` = v1 capture) |
+| `longPressToTranslate` | `Boolean`        | `false`   | Long-press reaches text the host made tappable                |
+| `autoEnable`     | `Boolean`              | `false`   | Turn the SDK on at start                                      |
 
-`SignLanguageTheme(primaryColor, textColor)` — `primaryColor` tints the logo, title, close
-button, loading ring **and the translated text** in the bottom sheet.
+`SignLanguageTheme(primaryColor, textColor)` — `primaryColor` tints the logo, control bar, the
+window pill, the loading spinner **and the caption** in the player.
 
 `FloatingButtonConfig(enabled, idleBehavior, idleDelayMs, sizeDp, backgroundColor,
 activeBackgroundColor, iconColor, activeIconColor, borderColor)` controls the floating
 button. `idleBehavior` is `PEEK` (default), `FADE`, or `NONE`. The button's active state and
 tap-to-translate mode stay **in sync** — toggling one updates the other.
+
+### Translator (signer) selection
+
+`tid`/`fdid` are **optional**. Three layers decide who signs, weakest to strongest:
+
+1. **Auto** — leave both unset and the SDK uses a default translator (**Hesna**) for the idle
+   placeholder and the first request.
+2. **Pinned** — set `tid`/`fdid` (or `card.placeholderAvatar`) to force a specific signer.
+3. **Backend override (strongest)** — if the backend serves a translation under a *different*
+   `tid`/`fdid` than requested (e.g. an account pinned to another translator), the SDK **adopts**
+   it: the idle signer switches to that person and every later request uses the corrected pair for
+   the rest of the session.
+
+So an integration that sets nothing shows Hesna first, then automatically switches to whatever
+translator the backend actually returns.
 
 ## 🧩 Public API (`SignLanguage`)
 
@@ -209,15 +244,44 @@ The `app/` module is a full example that demonstrates every feature. Open the
 project in Android Studio and run the **app** configuration (or
 `./gradlew :app:installDebug`). In the app you can:
 
-- enter your **API Key** / **API URL** at runtime (saved on the device) and pick a sign language,
-- long-press the Turkish sample text to translate via the selection menu,
-- toggle **tap-to-translate** and try the draggable floating button (the two stay in sync),
+- enter your **API Key** / **API URL** at runtime (saved on the device) — or inject them at build
+  time (see below) — and pick a sign language,
+- open the player with the **floating button**, then **tap** any sample text — or a **button** — to
+  translate it, and **long-press** a button to operate it instead,
 - translate text programmatically,
 - see **sensitive data** (national ID, card, e-mail, and a manually-marked line) get blocked,
 - watch every SDK event in a live **event log**.
 
 > The example uses a View/XML UI on purpose: text selection relies on real
 > `TextView`/`EditText` instances, which Jetpack Compose does not create.
+
+### Injecting credentials at build time (the `--dart-define` equivalent)
+
+Instead of typing the API Key / URL into the on-screen fields every run, you can inject them at
+build time — the same idea as the Flutter example's `--dart-define` launch args. The example
+reads them into `BuildConfig` and configures itself automatically on launch (falling back to the
+on-screen fields when they are unset).
+
+The recommended place is **`local.properties`** (it is gitignored, so real credentials never get
+committed):
+
+```properties
+SIGNFORDEAF_API_KEY=YOUR-API-KEY
+SIGNFORDEAF_API_URL=https://kor01rp02.signfordeaf.com
+# Optional:
+SIGNFORDEAF_ORIGIN_URL=https://webplugin.signfordeaf.com
+#SIGNFORDEAF_FDID=16
+#SIGNFORDEAF_TID=23
+```
+
+The same names also work as `-P` project properties or environment variables, e.g.:
+
+```bash
+./gradlew :app:installDebug -PSIGNFORDEAF_API_KEY=... -PSIGNFORDEAF_API_URL=...
+```
+
+`app/build.gradle.kts` resolves each value in the order **project property → `local.properties` →
+environment variable** and bakes it into `BuildConfig.SIGNFORDEAF_*`.
 
 ## 🔁 Migration from 1.x
 

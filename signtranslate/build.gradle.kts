@@ -43,7 +43,7 @@ mavenPublishing {
     // Publishes the release AAR + sources + javadoc jar.
     configure(AndroidSingleVariantLibrary(variant = "release"))
 
-    coordinates("io.github.signfordeaf", "signtranslate", "2.0.0")
+    coordinates("io.github.signfordeaf", "signtranslate", "2.1.0")
 
     pom {
         name.set("SignForDeaf Mobile Sign Language")
@@ -90,13 +90,18 @@ dependencies {
     implementation("androidx.media3:media3-exoplayer:1.2.0")
     implementation("androidx.media3:media3-ui:1.2.0")
 
+    // Coroutines — the v2 controller drives state on a StateFlow.
+    implementation(libs.kotlinx.coroutines.android)
+
     // AndroidX
     implementation("androidx.fragment:fragment-ktx:1.6.2")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.material)
 
     testImplementation(libs.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
 }
